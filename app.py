@@ -45,10 +45,8 @@ st.markdown("""
         text-decoration: none;
         display: block;
         font-weight: bold;
-        margin-top: 10px;
         font-family: 'Orbitron', sans-serif;
     }
-    /* ADDED THIS MISSING CSS CLASS */
     .android-hype {
         background-color: #0d1a0d;
         border: 2px dashed #00ff00;
@@ -59,17 +57,6 @@ st.markdown("""
         font-weight: bold;
         font-family: 'Orbitron', sans-serif;
         box-shadow: 0 0 10px #00ff00;
-        margin-top: 10px;
-    }
-    .platform-badge {
-        background-color: #222;
-        color: #ffee00;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        margin: 2px;
-        display: inline-block;
-        border: 1px solid #444;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -79,33 +66,25 @@ st.markdown('<p style="text-align: center; font-size: 40px; margin:0;">🇹🇳<
 st.markdown('<h1 class="neon-title">HABBET ELI T7EBB</h1>', unsafe_allow_html=True)
 st.markdown('<p class="neon-name">ENGINEERED BY BILEL JELASSI</p>', unsafe_allow_html=True)
 
-st.markdown('<div style="text-align: center;">'
-            '<span class="platform-badge">TikTok</span>'
-            '<span class="platform-badge">Facebook</span>'
-            '<span class="platform-badge">Instagram</span>'
-            '<span class="platform-badge">YouTube</span>'
-            '</div>', unsafe_allow_html=True)
-
 st.write("")
 
 # --- USER INPUTS ---
 url = st.text_input("PASTE YOUR LINK HERE", placeholder="https://...")
 
-# --- FIXED SECTION: THE SMART YOUTUBE WARNING ---
+# --- THE SMART YOUTUBE WARNING & REDIRECTS ---
 if "youtube.com" in url or "youtu.be" in url:
     st.error("⚠️ **YouTube Cloud Restriction Detected**")
     st.info("YouTube frequently blocks cloud servers like this one. If the extraction fails below, please use our **Windows Desktop Application** for a 100% success rate on YouTube!")
     
-    # FIXED: Defined the columns before using them!
     col_win, col_and = st.columns(2)
-    
     with col_win:
-        st.markdown('<a href="https://github.com/Billybu092/Project-Sentinel/raw/main/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 DOWNLOAD WINDOWS APP (v1.0)</a>', unsafe_allow_html=True)
+        st.markdown('<a href="https://github.com/Billybu092/Project-Sentinel/raw/main/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 DOWNLOAD WINDOWS APP</a>', unsafe_allow_html=True)
     
     with col_and:
         st.markdown('<div class="android-hype">📱 ANDROID APP<br>COMING VERY SOON!<br>STAY TUNED :)</div>', unsafe_allow_html=True)
     st.write("")
 
+# --- QUALITY LOGIC ---
 fmt = st.selectbox("STEP 1: CHOOSE FORMAT", ["MP4 (Video)", "MP3 (Audio)"])
 
 if fmt == "MP4 (Video)":
@@ -113,18 +92,18 @@ if fmt == "MP4 (Video)":
 else:
     quality = st.selectbox("STEP 2: SELECT BITRATE", ["320kbps", "256kbps", "192kbps", "128kbps"])
 
-# --- ENGINE ---
+# --- EXTRACTION ENGINE ---
 if st.button("🚀 START EXTRACTION"):
     if not url:
         st.error("Please paste a link first!")
     else:
         try:
-            with st.spinner("Bilel's Engine is processing..."):
+            with st.spinner("Processing..."):
                 save_path = "downloads"
                 if not os.path.exists(save_path): os.makedirs(save_path)
                 
                 res = quality.replace("p", "")
-                bitrate = quality.replace("kbps", "")
+                bit_val = quality.replace("kbps", "")
 
                 ydl_opts = {
                     'outtmpl': f'{save_path}/%(title)s.%(ext)s',
@@ -135,7 +114,7 @@ if st.button("🚀 START EXTRACTION"):
                 if "MP3" in fmt:
                     ydl_opts.update({
                         'format': 'bestaudio/best',
-                        'postprocessors': [{'key': 'FFmpegExtractAudio','preferredcodec': 'mp3','preferredquality': bitrate}]
+                        'postprocessors': [{'key': 'FFmpegExtractAudio','preferredcodec': 'mp3','preferredquality': bit_val}]
                     })
                 else:
                     ydl_opts.update({'format': f'best[height<={res}]' if res != "Best Available" else 'best'})
@@ -153,21 +132,6 @@ if st.button("🚀 START EXTRACTION"):
         except Exception as e:
             st.error("🚨 **Server Blocked:** YouTube is restricting this server. Please use the Windows App link above for 100% success!")
 
-# --- DONATION ---
-st.divider()
-st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)info)
-                    if "MP3" in fmt: file_path = file_path.rsplit('.', 1)[0] + '.mp3'
-
-                with open(file_path, "rb") as f:
-                    st.balloons()
-                    st.success("Extraction Successful! 🇹🇳")
-                    st.download_button(label="📥 SAVE TO DEVICE", data=f, file_name=os.path.basename(file_path))
-
-        except Exception as e:
-            st.error("🚨 **Server Blocked:** Please use the Windows App button above for YouTube videos!")
-
 # --- FOOTER ---
 st.divider()
 st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)
-
-
