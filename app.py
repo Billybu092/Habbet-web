@@ -43,13 +43,19 @@ st.markdown("""
         padding: 8px 15px;
         border-radius: 20px;
         font-family: 'Orbitron', sans-serif;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
-        border: 1px solid rgba(255,255,255,0.2);
-        background: rgba(255,255,255,0.05);
-        color: #888;
-        transition: 0.3s;
+        border: 1px solid #444;
+        background: #1e1e1e; /* Dark background even in light mode */
+        color: #ffee00;      /* Yellow text is now always visible */
+        margin: 5px;
+        display: inline-block;
+    }
+    .badge-active {
+        border-color: #ff0000;
+        box-shadow: 0 0 15px #ff0000;
+        color: #ffffff;
     }
     .badge:hover {
         color: #fff;
@@ -185,4 +191,5 @@ if st.button("🚀 LAUNCH EXTRACTION"):
 # --- FOOTER ---
 st.divider()
 st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)
+
 
