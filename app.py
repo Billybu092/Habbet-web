@@ -84,7 +84,10 @@ if "youtube.com" in url or "youtu.be" in url:
     st.info("YouTube frequently blocks cloud servers like this one. If the extraction fails below, please use our **Windows Desktop Application** for a 100% success rate on YouTube!")
     # Replace the link below with your actual GitHub release link
     st.markdown('<a href="https://github.com/Billybu092/Project-Sentinel/raw/main/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 DOWNLOAD WINDOWS APP (v1.0)</a>', unsafe_allow_html=True)
+    with col_and:
+        st.markdown('<div class="android-hype">📱 ANDROID APP<br>COMING VERY SOON!<br>STAY TUNED :)</div>', unsafe_allow_html=True)
     st.write("")
+    
 
 fmt = st.selectbox("STEP 1: CHOOSE FORMAT", ["MP4 (Video)", "MP3 (Audio)"])
 
@@ -136,3 +139,4 @@ if st.button("🚀 START EXTRACTION"):
 # --- FOOTER ---
 st.divider()
 st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)
+
