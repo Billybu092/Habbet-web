@@ -48,6 +48,19 @@ st.markdown("""
         margin-top: 10px;
         font-family: 'Orbitron', sans-serif;
     }
+    /* ADDED THIS MISSING CSS CLASS */
+    .android-hype {
+        background-color: #0d1a0d;
+        border: 2px dashed #00ff00;
+        color: #00ff00 !important;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        box-shadow: 0 0 10px #00ff00;
+        margin-top: 10px;
+    }
     .platform-badge {
         background-color: #222;
         color: #ffee00;
@@ -78,16 +91,20 @@ st.write("")
 # --- USER INPUTS ---
 url = st.text_input("PASTE YOUR LINK HERE", placeholder="https://...")
 
-# --- THE SMART YOUTUBE WARNING & WINDOWS REDIRECT ---
+# --- FIXED SECTION: THE SMART YOUTUBE WARNING ---
 if "youtube.com" in url or "youtu.be" in url:
     st.error("⚠️ **YouTube Cloud Restriction Detected**")
     st.info("YouTube frequently blocks cloud servers like this one. If the extraction fails below, please use our **Windows Desktop Application** for a 100% success rate on YouTube!")
-    # Replace the link below with your actual GitHub release link
-    st.markdown('<a href="https://github.com/Billybu092/Project-Sentinel/raw/main/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 DOWNLOAD WINDOWS APP (v1.0)</a>', unsafe_allow_html=True)
+    
+    # FIXED: Defined the columns before using them!
+    col_win, col_and = st.columns(2)
+    
+    with col_win:
+        st.markdown('<a href="https://github.com/Billybu092/Project-Sentinel/raw/main/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 DOWNLOAD WINDOWS APP (v1.0)</a>', unsafe_allow_html=True)
+    
     with col_and:
         st.markdown('<div class="android-hype">📱 ANDROID APP<br>COMING VERY SOON!<br>STAY TUNED :)</div>', unsafe_allow_html=True)
     st.write("")
-    
 
 fmt = st.selectbox("STEP 1: CHOOSE FORMAT", ["MP4 (Video)", "MP3 (Audio)"])
 
@@ -134,9 +151,23 @@ if st.button("🚀 START EXTRACTION"):
                     st.download_button(label="📥 SAVE TO DEVICE", data=f, file_name=os.path.basename(file_path))
 
         except Exception as e:
+            st.error("🚨 **Server Blocked:** YouTube is restricting this server. Please use the Windows App link above for 100% success!")
+
+# --- DONATION ---
+st.divider()
+st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)info)
+                    if "MP3" in fmt: file_path = file_path.rsplit('.', 1)[0] + '.mp3'
+
+                with open(file_path, "rb") as f:
+                    st.balloons()
+                    st.success("Extraction Successful! 🇹🇳")
+                    st.download_button(label="📥 SAVE TO DEVICE", data=f, file_name=os.path.basename(file_path))
+
+        except Exception as e:
             st.error("🚨 **Server Blocked:** Please use the Windows App button above for YouTube videos!")
 
 # --- FOOTER ---
 st.divider()
 st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)
+
 
