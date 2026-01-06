@@ -2,97 +2,91 @@ import streamlit as st
 import yt_dlp
 import os
 
-# --- BILEL'S PREMIUM BRANDING & STYLING ---
+# --- BILEL'S NEON PREMIUM BRANDING ---
 st.set_page_config(page_title="Habbet Eli t7ebb | Bilel Jelassi", page_icon="🚀")
 
 st.markdown("""
     <style>
-    .main { background-color: #0a0a0a; }
-    .title-text { color: #ffffff; font-family: 'Arial Black'; text-align: center; font-size: 50px; margin-bottom: 0px; }
+    .main { background-color: #050505; }
+    .title-text { 
+        color: #ffffff; 
+        font-family: 'Arial Black'; 
+        text-align: center; 
+        font-size: 45px; 
+        text-shadow: 0 0 10px #ffee00;
+    }
     .special-name { 
         color: #ffee00; 
         font-family: 'Courier New'; 
         text-align: center; 
-        font-size: 26px; 
+        font-size: 24px; 
         font-weight: bold;
-        text-shadow: 2px 2px 15px #ffee00;
-        letter-spacing: 4px;
-        margin-top: -10px;
+        text-shadow: 0 0 20px #ffee00, 0 0 30px #ffcc00; /* NEON GLOW */
+        letter-spacing: 5px;
     }
-    .stButton>button { background-color: #ffee00; color: black; width: 100%; border-radius: 8px; font-weight: bold; border: none; height: 50px; font-size: 18px; }
-    .stButton>button:hover { background-color: #ffcc00; color: white; transform: scale(1.02); transition: 0.3s; }
+    .stButton>button { 
+        background: linear-gradient(45deg, #ffee00, #ff9900); 
+        color: black; 
+        font-weight: bold; 
+        border-radius: 10px; 
+        border: none;
+        height: 50px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
 st.markdown('<h1 class="title-text">Habbet Eli t7ebb</h1>', unsafe_allow_html=True)
 st.markdown('<p class="special-name">ENGINEERED BY BILEL JELASSI</p>', unsafe_allow_html=True)
 
-# --- USER INTERFACE ---
-st.write("")
-url = st.text_input("PASTE LINK HERE (YouTube, TikTok, Instagram, Facebook, etc.)", placeholder="https://www.socialmedia.com/video/...")
+# --- MULTI-PLATFORM INPUT ---
+url = st.text_input("PASTE ANY LINK (YouTube, TikTok, FB, Instagram, etc.)", placeholder="https://...")
 
 col1, col2 = st.columns(2)
 with col1:
     fmt = st.selectbox("FORMAT", ["MP3 (Audio)", "MP4 (Video)"])
 with col2:
-    if fmt == "MP4 (Video)":
-        quality = st.selectbox("RESOLUTION", ["1080p", "720p", "480p", "Best Available"])
-    else:
-        quality = st.selectbox("BITRATE", ["320kbps", "256kbps", "192kbps", "128kbps"])
+    quality = st.selectbox("QUALITY", ["Best Available", "1080p", "720p", "480p"])
 
-# --- EXTRACTION ENGINE ---
-if st.button("EXTRACT NOW"):
+if st.button("🚀 EXTRACT NOW"):
     if not url:
-        st.warning("Bilel says: Please paste a link first!")
+        st.warning("Please paste a link first!")
     else:
         try:
-            with st.spinner("Bilel is bypassing restrictions..."):
+            with st.spinner("Bilel is fighting the servers..."):
                 save_path = "downloads"
                 if not os.path.exists(save_path): os.makedirs(save_path)
 
-                # Cleaning quality strings
-                res = quality.replace("p", "")
-                bitrate = quality.replace("kbps", "")
-
+                # These options use a "Mobile User Agent" to bypass YouTube's PC block
                 ydl_opts = {
                     'outtmpl': f'{save_path}/%(title)s.%(ext)s',
                     'quiet': True,
                     'no_warnings': True,
-                    'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+                    'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1',
                     'referer': 'https://www.google.com/',
                 }
 
                 if fmt == "MP3 (Audio)":
                     ydl_opts.update({
                         'format': 'bestaudio/best',
-                        'postprocessors': [{
-                            'key': 'FFmpegExtractAudio',
-                            'preferredcodec': 'mp3',
-                            'preferredquality': bitrate if bitrate != "Best Available" else "192",
-                        }],
+                        'postprocessors': [{'key': 'FFmpegExtractAudio','preferredcodec': 'mp3','preferredquality': '192'}]
                     })
                 else:
-                    # Using 'best' instead of format merging prevents the FFMPEG error on Cloud
-                    if quality == "Best Available":
-                        ydl_opts.update({'format': 'best'})
-                    else:
-                        ydl_opts.update({'format': f'best[height<={res}]'})
+                    # 'best' is safer for web apps to avoid FFMPEG merge errors
+                    ydl_opts.update({'format': 'best'})
 
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     info = ydl.extract_info(url, download=True)
                     file_path = ydl.prepare_filename(info)
-                    if fmt == "MP3 (Audio)":
-                        file_path = file_path.rsplit('.', 1)[0] + '.mp3'
+                    if fmt == "MP3 (Audio)": file_path = file_path.rsplit('.', 1)[0] + '.mp3'
 
                 with open(file_path, "rb") as f:
                     st.balloons()
-                    st.success("Extracted successfully! 🙂")
-                    st.download_button(label="📥 DOWNLOAD FILE", data=f, file_name=os.path.basename(file_path))
+                    st.success("Success! 🙂")
+                    st.download_button(label="📥 DOWNLOAD NOW", data=f, file_name=os.path.basename(file_path))
 
         except Exception as e:
-            st.error("SYSTEM ERROR: This link is private or restricted. Try another public link!")
+            st.error("YouTube is currently blocking this server. Try a TikTok or FB link, or try again in 5 minutes!")
 
-# --- DONATION SECTION ---
+# --- DONATION ---
 st.divider()
-st.markdown("<h3 style='text-align: center; color: white;'>Support the Developer</h3>", unsafe_allow_html=True)
-st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 180px !important;" ></a></div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="160"></a></div>', unsafe_allow_html=True)
