@@ -3,12 +3,15 @@ import yt_dlp
 import os
 
 # --- TUNISIAN NEON & FLAG STYLING ---
-st.set_page_config(page_title="Habbet Eli t7ebb | Bilel Jelassi", page_icon="🇹🇳")
+st.set_page_config(page_title="Habbet Eli t7ebb | Bilel Jelassi", page_icon="🇹🇳", layout="centered")
 
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
+    
     .main { background-color: #0a0a0a; }
+    
+    /* Neon Titles */
     .neon-title {
         font-family: 'Orbitron', sans-serif;
         color: #fff;
@@ -25,8 +28,42 @@ st.markdown("""
         font-size: 18px;
         letter-spacing: 5px;
         text-shadow: 0 0 10px #ffee00;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
+
+    /* Platform Dashboard Tabs */
+    .platform-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    .badge {
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #888;
+        transition: 0.3s;
+    }
+    .badge:hover {
+        color: #fff;
+        border-color: #ff0000;
+        box-shadow: 0 0 10px #ff0000;
+    }
+    .badge-active {
+        color: #fff;
+        border-color: #ffee00;
+        box-shadow: 0 0 10px #ffee00;
+        background: rgba(255, 238, 0, 0.1);
+    }
+
+    /* Buttons and Cards */
     .stButton>button {
         background: linear-gradient(90deg, #ff0000, #cc0000);
         color: white;
@@ -34,6 +71,7 @@ st.markdown("""
         font-weight: bold;
         height: 50px;
         border: 1px solid white;
+        width: 100%;
     }
     .win-download {
         background-color: #1e1e1e;
@@ -56,49 +94,61 @@ st.markdown("""
         text-align: center;
         font-weight: bold;
         font-family: 'Orbitron', sans-serif;
-        box-shadow: 0 0 10px #00ff00;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- HEADER SECTION ---
+# --- HEADER & PLATFORM TABS ---
 st.markdown('<p style="text-align: center; font-size: 40px; margin:0;">🇹🇳</p>', unsafe_allow_html=True)
 st.markdown('<h1 class="neon-title">HABBET ELI T7EBB</h1>', unsafe_allow_html=True)
 st.markdown('<p class="neon-name">ENGINEERED BY BILEL JELASSI</p>', unsafe_allow_html=True)
 
-st.write("")
+# Creative Platform Dashboard
+st.markdown("""
+<div class="platform-container">
+    <div class="badge badge-active">TikTok</div>
+    <div class="badge badge-active">Facebook</div>
+    <div class="badge badge-active">Instagram</div>
+    <div class="badge badge-active">Twitter / X</div>
+    <div class="badge">YouTube</div>
+    <div class="badge">Dailymotion</div>
+    <div class="badge">Vimeo</div>
+    <div class="badge">SoundCloud</div>
+</div>
+""", unsafe_allow_html=True)
 
 # --- USER INPUTS ---
-url = st.text_input("PASTE YOUR LINK HERE", placeholder="https://...")
+url = st.text_input("PASTE LINK BELOW", placeholder="https://tiktok.com/@user/video/...")
 
-# --- THE SMART YOUTUBE WARNING & REDIRECTS ---
+# --- DYNAMIC YOUTUBE ALERT ---
 if "youtube.com" in url or "youtu.be" in url:
     st.error("⚠️ **YouTube Cloud Restriction Detected**")
     st.info("YouTube frequently blocks cloud servers like this one. If the extraction fails below, please use our **Windows Desktop Application** for a 100% success rate on YouTube!")
     
     col_win, col_and = st.columns(2)
     with col_win:
-        st.markdown('<a href="https://github.com/Billybu092/Project-Sentinel/raw/main/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 DOWNLOAD WINDOWS APP</a>', unsafe_allow_html=True)
-    
+        st.markdown('<a href="https://github.com/Billybu092/Project-Sentinel/raw/main/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 WINDOWS APP (FREE)</a>', unsafe_allow_html=True)
     with col_and:
-        st.markdown('<div class="android-hype">📱 ANDROID APP<br>COMING VERY SOON!<br>STAY TUNED :)</div>', unsafe_allow_html=True)
-    st.write("")
+        st.markdown('<div class="android-hype">📱 ANDROID APP<br>COMING SOON!<br>STAY TUNED :)</div>', unsafe_allow_html=True)
+    st.divider()
 
-# --- QUALITY LOGIC ---
-fmt = st.selectbox("STEP 1: CHOOSE FORMAT", ["MP4 (Video)", "MP3 (Audio)"])
-
-if fmt == "MP4 (Video)":
-    quality = st.selectbox("STEP 2: SELECT RESOLUTION", ["Best Available", "1080p", "720p", "480p"])
-else:
-    quality = st.selectbox("STEP 2: SELECT BITRATE", ["320kbps", "256kbps", "192kbps", "128kbps"])
+# --- SELECTORS ---
+col_f, col_q = st.columns(2)
+with col_f:
+    fmt = st.selectbox("FORMAT", ["MP4 (Video)", "MP3 (Audio)"])
+with col_q:
+    if fmt == "MP4 (Video)":
+        quality = st.selectbox("RESOLUTION", ["Best", "1080p", "720p", "480p"])
+    else:
+        quality = st.selectbox("BITRATE", ["320kbps", "256kbps", "192kbps", "128kbps"])
 
 # --- EXTRACTION ENGINE ---
-if st.button("🚀 START EXTRACTION"):
+if st.button("🚀 LAUNCH EXTRACTION"):
     if not url:
-        st.error("Please paste a link first!")
+        st.error("Missing Link!")
     else:
         try:
-            with st.spinner("Processing..."):
+            with st.spinner("Extracting..."):
                 save_path = "downloads"
                 if not os.path.exists(save_path): os.makedirs(save_path)
                 
@@ -117,7 +167,7 @@ if st.button("🚀 START EXTRACTION"):
                         'postprocessors': [{'key': 'FFmpegExtractAudio','preferredcodec': 'mp3','preferredquality': bit_val}]
                     })
                 else:
-                    ydl_opts.update({'format': f'best[height<={res}]' if res != "Best Available" else 'best'})
+                    ydl_opts.update({'format': f'best[height<={res}]' if res != "Best" else 'best'})
 
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     info = ydl.extract_info(url, download=True)
@@ -126,11 +176,11 @@ if st.button("🚀 START EXTRACTION"):
 
                 with open(file_path, "rb") as f:
                     st.balloons()
-                    st.success("Extraction Successful! 🇹🇳")
-                    st.download_button(label="📥 SAVE TO DEVICE", data=f, file_name=os.path.basename(file_path))
+                    st.success("Success! 🇹🇳")
+                    st.download_button(label="📥 DOWNLOAD NOW", data=f, file_name=os.path.basename(file_path))
 
-        except Exception as e:
-            st.error("🚨 **Server Blocked:** YouTube is restricting this server. Please use the Windows App link above for 100% success!")
+        except Exception:
+            st.error("🚨 Server Blocked. Use the Windows App link for YouTube!")
 
 # --- FOOTER ---
 st.divider()
