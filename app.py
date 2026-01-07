@@ -133,7 +133,7 @@ if "youtube.com" in url or "youtu.be" in url:
     
     col_win, col_and = st.columns(2)
     with col_win:
-        st.markdown('<a href="https://github.com/Billybu092/Habbet-web/releases/download/v1.0.0/Habbet_Eli_t7ebb_Setup.exe" class="win-download">📥 WINDOWS APP (FREE)</a>', unsafe_allow_html=True)
+        st.markdown('<a href="https://github.com/Billybu092/Habbet-web/releases/download/v1.1.0/Habbet_Eli_t7ebb_Setup_v1.1.exe" class="win-download">📥 WINDOWS APP (FREE)</a>', unsafe_allow_html=True)
     with col_and:
         st.markdown('<div class="android-hype">📱 ANDROID APP<br>COMING SOON!<br>STAY TUNED :)</div>', unsafe_allow_html=True)
     st.divider()
@@ -191,5 +191,6 @@ if st.button("🚀 LAUNCH EXTRACTION"):
 # --- FOOTER ---
 st.divider()
 st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)
+
 
 
