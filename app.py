@@ -190,7 +190,8 @@ if st.button("🚀 LAUNCH EXTRACTION"):
 
 # --- FOOTER ---
 st.divider()
-st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelassi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align: center;"><a href="https://www.buymeacoffee.com/BilelJelasz" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style="height: 45px !important;" ></a></div>', unsafe_allow_html=True)
+
 
 
 
