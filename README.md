@@ -16,7 +16,7 @@
 ### 2. Windows Desktop App (The YouTube Specialist)
 * **Best For:** YouTube (4K/1080p) and long-form audio extraction.
 * **Why it exists:** Engineered to bypass cloud-IP blocking by using local machine processing, ensuring a 100% success rate where web servers fail.
-* **Installation:** Download the official [**Download the Official Setup.exe here**](https://github.com/Billybu092/Habbet-web/releases/download/v1.1.0/Habbet_Eli_t7ebb_Setup_v1.1.exe)
+* **Installation:** Download the official setup 🚀🚀 [**Download the Official Setup.exe here**](https://github.com/Billybu092/Habbet-web/releases/download/v1.1.0/Habbet_Eli_t7ebb_Setup_v1.1.exe)
 
 ---
 
